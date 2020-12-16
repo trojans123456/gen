@@ -10,7 +10,7 @@ HEADERS += \
     resource/t_thread.h \
     resource/t_resalloc.h \
     event/t_event.h \
-    #socket/t_socket.h
+    serial/t_serial.h
 
 SOURCES += \
     main.cpp \
@@ -18,4 +18,4 @@ SOURCES += \
     resource/t_resalloc.cpp \
     exception/t_exception.cpp \
     event/t_event.cpp \
-   # socket/t_socket.cpp
+    serial/t_serial.cpp

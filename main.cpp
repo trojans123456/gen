@@ -7,6 +7,7 @@
 #include "event/t_event.h"
 #include "resource/t_thread.h"
 #include "exception/t_exception.h"
+#include "serial/t_serial.h"
 
 int time_proc(long long id,void *priv)
 {
@@ -57,7 +58,7 @@ private:
 
 
 
-int main(int argc,char *argv[])
+int xx_main(int argc,char *argv[])
 {
     QCoreApplication a(argc,argv);
 
@@ -73,7 +74,45 @@ int main(int argc,char *argv[])
     test_thread tt;
     tt.Start();
 
+    Serial *serial = new Serial("/dev/ttyO2");
 
+    bool ret = serial->open();
+    if(!ret)
+    {
+        qDebug() << "open failed\n";
+    }
+    serial->setBaudRate(COMM_BAUD_115200);
+    serial->setDataBits(COMM_DATA_8);
+    serial->setParity(COMM_PARITY_NONE);
+    serial->setStopBits(COMM_STOPBIT_1);
+
+    while(1)
+    {
+        serial->writeData("fjslkj",strlen("fjslkj"));
+        sleep(1);
+    }
 
     return a.exec();
+}
+
+int main(int argc,char *argv[])
+{
+    QString str = argv[1];
+    Serial *serial = new Serial();
+    serial->setPortName(str);
+    bool ret = serial->open();
+    if(!ret)
+    {
+        qDebug() << "open failed\n";
+    }
+    serial->setBaudRate(COMM_BAUD_115200);
+    serial->setDataBits(COMM_DATA_8);
+    serial->setParity(COMM_PARITY_NONE);
+    serial->setStopBits(COMM_STOPBIT_1);
+
+    while(1)
+    {
+        serial->writeData("fjslkj",strlen("fjslkj"));
+        sleep(1);
+    }
 }

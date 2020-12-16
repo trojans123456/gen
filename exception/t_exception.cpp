@@ -2,6 +2,8 @@
 #include <cxxabi.h>
 #include <execinfo.h>
 #include <dlfcn.h>
+#include <string.h>
+#include <errno.h>
 #endif
 
 #include <string.h>
@@ -82,4 +84,11 @@ QString TError::getStack()
 #else
     return "null";
 #endif
+}
+
+QString TError::lastError()
+{
+    QString str("");
+    str = strerror(errno);
+    return str;
 }

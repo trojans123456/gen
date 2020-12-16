@@ -15,6 +15,7 @@ public:
     int &getCode() {return mCode;}
 
     static QString getStack();
+    static QString lastError();
 
 private:
     QString mMsg;
